@@ -1,32 +1,59 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div class="wrapper">
+    <div class="btn-test">
+      <v-btn
+             v-for="(routeItem,index) in routerControl"
+             @click="routerController(routeItem)"
+             :key="routeItem+index">
+        {{ routeItem }}
+      </v-btn>
+    </div>
+<!--    <div class="alert-wrapper">-->
+<!--      <alert-pop-index></alert-pop-index>-->
+<!--    </div>-->
+    <router-view></router-view>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import Vue from 'vue'
+// import AlertPopIndex from '@/components/AlertPop/AlertPopIndex.vue'
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default Vue.extend({
+  name: 'App',
+  data: () => ({
+    routerControl: [
+      '/login',
+      '/home',
+      '/articleList'
+    ]
+  }),
+  // components: {
+  //   AlertPopIndex
+  // },
+  methods: {
+    routerController (path: string) {
+      this.$router.push({ path })
     }
   }
+})
+</script>
+
+<style lang="less">
+.btn-test {
+  position: absolute;
+  left: 30px;
+  top: 500px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  button {
+    margin-bottom: 20px;
+  }
+}
+.alert-wrapper {
+  position: absolute;
+  top: 10px;
+  width: 100vw;
 }
 </style>
